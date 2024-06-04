@@ -6,8 +6,6 @@ export type AccountDocument = HydratedDocument <Account>;
 
 @Schema()
 export class Account {
-    @Prop()
-    username: string;
 
     @Prop()
     password: string;
