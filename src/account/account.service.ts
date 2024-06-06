@@ -5,9 +5,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Account } from './entities/account.entity';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt'
-import { error } from 'console';
+// import { error } from 'console';
 import { Request, Response, } from 'express';
-import { AccountModule } from './account.module';
+// import { AccountModule } from './account.module';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -55,7 +55,7 @@ export class AccountService {
         throw new HttpException('user not found', 404);
       }
 
-      const token = await this.jwtService.signAsync({id:user.id, email:user.email, role:user.role});
+      const token = await this.jwtService.signAsync({id:user.id, email:user.email});
       res.cookie('userAuthenticated', token, {
         httpOnly: true,
         maxAge: 1 * 60 * 60 * 1000,
