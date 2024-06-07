@@ -3,6 +3,8 @@ import { Account } from "src/account/entities/account.entity";
 import { AccountService } from "src/account/account.service";
 import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
+import { CreateAccountDto } from "src/account/dto/create-account.dto";
+import { promises } from "dns";
 
 Injectable()
 export class Jwtstrategy extends PassportStrategy(Strategy, 'jwt') {
@@ -14,9 +16,8 @@ export class Jwtstrategy extends PassportStrategy(Strategy, 'jwt') {
         });
 }
 
-async validate(LoginDto: { email }):Promise<string> {
-    const {email} = LoginDto;
-    const user = await this.AccountService.findOne(email);
+async validate(email: string,) {
+    const user = await this.AccountService.getUser(email);
     if (!user) {
         throw new UnauthorizedException('log in first')
     }

@@ -12,6 +12,8 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AccountService {
+  constructor(@InjectModel(Account.name) private accountModel:Model<Account>, private readonly jwtService: JwtService,
+  ){}
   // create(createAccountDto: CreateAccountDto) {
   //   return 'This action adds a new account';
   // }
@@ -20,8 +22,7 @@ export class AccountService {
     return `This action returns all account`;
   }
 
-  constructor(@InjectModel(Account.name) private accountModel:Model<Account>, private readonly jwtService: JwtService,
-  ){}
+  
    async signUp(createAccountDto: CreateAccountDto) {
     createAccountDto.email = createAccountDto.email.toLowerCase();
     const {email, password, ...rest}= createAccountDto;
@@ -48,27 +49,35 @@ export class AccountService {
 
     async login(LoginDto:CreateAccountDto, @Req() req:Request, @Res() res:Response){
       const {email, password} = LoginDto;
-      const user = await this.accountModel.findOne({where:{email}})
+      const user = await this.accountModel.findOne({email})
+      console.log(user);
+      
       if (!user) throw new HttpException('user not found', 404);
       const isMatch = await bcrypt.compare(password, user.password)
+      console.log(isMatch);
+      
       if(!isMatch){
         throw new HttpException('user not found', 404);
       }
 
-      const token = await this.jwtService.signAsync({id:user.id, email:user.email});
+      const token = await this.jwtService.signAsync({_id:user._id, email:user.email});
       res.cookie('userAuthenticated', token, {
         httpOnly: true,
         maxAge: 1 * 60 * 60 * 1000,
         sameSite: 'none',
         secure: true,
       })
+      console.log(token);
+      
 
+    
 
 
     }
 
-
-
+    async getUser(email: string) {
+      return await this.accountModel.findOne({email})
+    }
 
 
   findOne(id: number) {

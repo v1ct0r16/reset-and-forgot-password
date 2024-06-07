@@ -8,7 +8,7 @@ import { Request,Response } from 'express';
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
-  @Post()
+  @Post('signin')
     createUSer(@Body() CreateAccountDto: CreateAccountDto ){
         return this.accountService.signUp(CreateAccountDto);
     }
