@@ -18,6 +18,7 @@ export class AccountService {
   //   return 'This action adds a new account';
   // }
 
+  
   findAll() {
     return `This action returns all account`;
   }
@@ -75,8 +76,10 @@ export class AccountService {
 
     }
 
-    async getUser(email: string) {
-      return await this.accountModel.findOne({email})
+  
+
+    async getUser(email: string, resetLink: string) {
+      return await this.accountModel.findOne({email,})
     }
 
 

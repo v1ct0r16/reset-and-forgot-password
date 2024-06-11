@@ -7,6 +7,8 @@ import { AccountService } from './account/account.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { PasswordResetTokenService } from './password-reset-token/password-reset-token.service';
+import { ForgotPasswordService } from './forgot-password/forgot-password.service';
 
 @Module({
   imports: [ConfigModule.forRoot({isGlobal: true}),MongooseModule.forRoot(process.env.DB_URL),AccountModule,
@@ -22,7 +24,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     , inject: [ConfigService]
   }),],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, PasswordResetTokenService, ForgotPasswordService],
   
 })
 export class AppModule {}
