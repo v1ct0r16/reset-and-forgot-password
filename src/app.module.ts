@@ -2,8 +2,6 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AccountModule } from './account/account.module';
-import { AccountController } from './account/account.controller';
-import { AccountService } from './account/account.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -24,7 +22,7 @@ import { ForgotPasswordService } from './forgot-password/forgot-password.service
     , inject: [ConfigService]
   }),],
   controllers: [AppController],
-  providers: [AppService, PasswordResetTokenService, ForgotPasswordService],
+  providers: [AppService],
   
 })
 export class AppModule {}

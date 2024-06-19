@@ -1,6 +1,7 @@
 import { HydratedDocument } from "mongoose";
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory, } from "@nestjs/mongoose";
 import { PasswordResetToken } from "./password.entity";
+import { OneToOne } from "typeorm";
 
 
 export type AccountDocument = HydratedDocument <Account>;
@@ -14,7 +15,7 @@ export class Account {
     @Prop()
     email: string;
 
-    @OneToOne(() => PasswordResetToken, (token) => token.user)
+    @OneToOne(() => PasswordResetToken, (token) => token.account)
   PasswordResetToken?: PasswordResetToken;
 }
 

@@ -38,4 +38,5 @@ export class AccountController {
   remove(@Param('id') id: string) {
     return this.accountService.remove(+id);
   }
+  
 }

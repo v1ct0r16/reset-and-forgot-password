@@ -5,9 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Account } from './entities/account.entity';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt'
-// import { error } from 'console';
 import { Request, Response, } from 'express';
-// import { AccountModule } from './account.module';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -78,8 +76,13 @@ export class AccountService {
 
   
 
-    async getUser(email: string, resetLink: string) {
+    async getUser(email: string, ) {
       return await this.accountModel.findOne({email,})
+    }
+
+    async sendForgotPasswordEmail( email:String, resetLink: string) {
+      return await this.accountModel.findOne({email})
+
     }
 
 

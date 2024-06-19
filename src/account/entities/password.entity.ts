@@ -1,7 +1,7 @@
-
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop, Schema,} from '@nestjs/mongoose';
 import { v4 as uuidv4 } from 'uuid'; // Or any other secure token generation method
 import { Account } from './account.entity';
+import { ManyToOne } from 'typeorm';
 
 @Schema()
 export class PasswordResetToken {
@@ -9,12 +9,11 @@ export class PasswordResetToken {
   id: number;
 
   @Prop({ unique: true })
-  token: string = uuidv4();
+  token: string = uuidv4(); 
 
   @Prop()
   expiresAt: Date;
 
-  @ManyToOne(() => Account, (Account) => Account.passwordResetToken)
+  @ManyToOne(() => Account, (account) => account.PasswordResetToken)
   account: Account;
-  
-}
+} 

@@ -7,6 +7,8 @@ import { Account, AccountSchema } from './entities/account.entity';
 import { PassportModule } from '@nestjs/passport';
 import { JwtService } from '@nestjs/jwt';
 import { Jwtstrategy } from 'src/strategy/jwt.strategy';
+import { PasswordResetTokenService } from 'src/password-reset-token/password-reset-token.service';
+import { ForgotPasswordService } from 'src/forgot-password/forgot-password.service';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: Account.name, schema: AccountSchema }]),
@@ -17,7 +19,7 @@ import { Jwtstrategy } from 'src/strategy/jwt.strategy';
 
 ],
   controllers: [AccountController],
-  providers: [AccountService, Jwtstrategy, JwtService],
+  providers: [AccountService, Jwtstrategy, JwtService, PasswordResetTokenService, ForgotPasswordService],
   exports: [JwtService]  
   
 })
